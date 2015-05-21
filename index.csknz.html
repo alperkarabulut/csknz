@@ -73,6 +73,9 @@ function sehir_getir3 (){
 				sehirEle.appendChild(opt)
 
 			}
+		},
+		error: function(obj){
+			console.log( obj );
 		}
 	} );
 
@@ -82,15 +85,26 @@ function sehir_getir3 (){
 </head>
 
 <body>
+<div> <a href="#" onclick="sehir_getir2()">Getir</a> </div>
 <div>
-<a href="#" onclick="sehir_getir2()">Getir</a>
-</div>
-<div>
-  <label>Şehirler
-    <select id="sehirler">
-      <!--<option value="geonameId">name</option>-->
-    </select>
-  </label>
+	<input class="ustLogo" type="image" name="logo" id="logo" src="images/csknz-logo.jpg" />
+  <p>
+    <label>Şehirler
+      <select id="sehirler">
+        <!--<option value="geonameId">name</option>-->
+      </select>
+    </label>
+    <br/>
+    <label for="fileObj">Dosya Seçin</label>
+    <input type="file" name="fileObj" id="fileObj" />
+    <br/>
+    <label for="Seçim Yapınız"></label>
+    <input type="radio" name="radio" id="Seçim Yapınız" value="rad1" />
+    <input type="radio" name="radio" id="Seçim Yapınız2" value="rad2" />
+  </p>
+  <p>
+    <input class="altLogo" type="image" name="logo" id="logo" src="images/logo.png" />
+  </p>
 </div>
 </body>
 </html>
