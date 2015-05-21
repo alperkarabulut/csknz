@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<!-- CSS Gösterimi	1. yöntem	-->
+
+<link rel="stylesheet" href="csknz.css"/>
+</head>
+<!-- JScript Gösterim 1. yöntem -->
+<script type="text/javascript" src="csknz4.js"></script>
+
+<!-- JScript Gösterim 2. yöntem -->
+<script type="text/javascript">
+
+</script>
+<style>
+/* CSS Gösterimi	2. yöntem	*/
+h2 {
+	font-family:Arial, Helvetica, sans-serif ;	
+}
+
+/*		TAG	*/
+/*
+a {
+	font-size : 6px;
+}
+*/
+/*		Class	*/
+.csknz {
+
+}
+
+/*		ID 		*/
+#csknz01 {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 40px;
+}
+
+/*		Xpath ifadesi */
+table tr td#alper {
+	
+}
+
+/*		Grouping		*/
+
+.csknz01, h2, table a.csknzlink {
+		
+}
+
+
+</style>
+
+<script type="text/javascript">
+var Okul = new okul("Uludağ Üniversitesi");
+
+function Listele(){
+	for( var i = 0; i < Okul.kayitListele().length ; i ++) {
+		alert(Okul.kayitListele()[i].getOgrenciAdi());
+	}
+
+}
+
+</script>
+<body>
+<p>
+  <label for="ogrenciNo"></label>
+  Öğrenci Adı 
+  <input type="text" name="ad" id="ad">
+  
+</p>
+<p>Öğrenci Soyadi
+  <input type="text" name="soyadi" id="soyadi">
+</p>
+<p>
+  <a href="#"  onclick="Okul.kayitEkle(ad.value, soyadi.value)" >Öğrenci Ekle</a>
+  <a href="#"  onclick="Okul.kayitEkle2()" >Öğrenci Ekle2</a>
+</p>
+<p>&nbsp;</p>
+<a href="#" onclick="Listele()">Öğrenci Listeli</a>
+
+</body>
+</html>

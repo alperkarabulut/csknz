@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="jquery-1.11.3.js"></script>
+<script type="text/javascript">
+
+//var url = "http://api.geonames.org/cities?north=44.1&south=-9.9&east=-22.4&west=55.2&username=demo";
+var url = "http://api.geonames.org/cities";
+
+function sehir_getir (){
+	
+	$.ajax( url );
+
+}
+
+function sehir_getir2 (){
+	
+	$.ajax( url , {
+		async: true,
+		type: "GET",
+		data: {
+				"north": "44.1",
+				"south": "-9.9",
+				"east": "-22.4",
+				"west": "55.2",
+				"username": "alperkarabulut"
+			},
+		success: function(returnedData,eventName){
+			var geonameAry = returnedData.getElementsByTagName("geoname");
+			
+			for( var i = 0; i < geonameAry.length ; i ++ ) {
+				var geoname = geonameAry[i];
+				var geonameId = geoname.getElementsByTagName("geonameId")[0].textContent;
+				var name = geoname.getElementsByTagName("name")[0].textContent;
+				var sehirEle = document.getElementById("sehirler");
+				
+				var opt = document.createElement("option");
+				opt.value = geonameId;
+				opt.textContent = name;
+				sehirEle.appendChild(opt)
+			}
+		}
+	} );
+
+}
+function sehir_getir3 (){
+	var urlJSON = "http://api.geonames.org/citiesJSON";
+	$.ajax( urlJSON , {
+		async: true,
+		type: "GET",
+		dataType: "JSON",
+		data: {
+				"north": "44.1",
+				"south": "-9.9",
+				"east": "-22.4",
+				"west": "55.2",
+				"username": "alperkarabulut"
+			},
+		success: function(returnedData,eventName){
+			console.log(returnedData);
+/*			var geonameAry = returnedData.getElementsByTagName("geoname");
+			
+			for( var i = 0; i < geonameAry.length ; i ++ ) {
+				var geoname = geonameAry[i];
+				var geonameId = geoname.getElementsByTagName("geonameId")[0].textContent;
+				var name = geoname.getElementsByTagName("name")[0].textContent;
+				var sehirEle = document.getElementById("sehirler");
+				
+				var opt = document.createElement("option");
+				opt.value = geonameId;
+				opt.textContent = name;
+				sehirEle.appendChild(opt)
+
+			}
+*/
+		}
+	} );
+
+}
+</script>
+<title></title>
+</head>
+
+<body>
+<div>
+<a href="#" onclick="sehir_getir2()">Getir</a>
+</div>
+<div>
+  <label>Şehirler
+    <select id="sehirler">
+      <!--<option value="geonameId">name</option>-->
+    </select>
+  </label>
+</div>
+</body>
+</html>
