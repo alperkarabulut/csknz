@@ -78,7 +78,53 @@ function sehir_getir3 (){
 			console.log( obj );
 		}
 	} );
-
+}
+function sehir_getir4 (){
+	var urlJSON = "http://api.geonames.org/citiesJSON";
+	$.ajax( urlJSON , {
+		async: true,
+		type: "GET",
+		dataType: "JSON",
+		data: {
+				"north": "44.1",
+				"south": "-9.9",
+				"east": "-22.4",
+				"west": "55.2",
+				"username": "alperkarabulut"
+			},
+		success: function(returnedData,eventName){
+			console.log(returnedData);
+			var geonameAry = returnedData.geonames;
+			
+			for( var i = 0; i < geonameAry.length ; i ++ ) {
+				var geoname = geonameAry[i];
+				var geonameId = geoname.geonameId;
+				var name = geoname.name;
+/*
+				$("#sehirler") = $("[id=sehirler]")
+				
+				$("[name=sehirler]") 
+*/
+				//var sehirEle = $("#sehirler");
+				
+				//var opt = $("<option>").text(name).val(geonameId);
+				//sehirEle.append($("<option>").text(name).val(geonameId));
+				//$("#sehirler").append($("<option>").text(name).val(geonameId));
+				
+				var opt = $("<option>").text(name).val(geonameId);
+				opt.attr("lng",geoname.lng).attr("lat",geoname.lat);
+				$("#sehirler").append(opt);
+			}
+		},
+		error: function(obj){
+			console.log( obj );
+		}
+	} );
+}
+function slideDownAnimated(){
+	
+	$("input").fadeToggle();
+	slideDownAnimated();
 }
 </script>
 <title></title>
