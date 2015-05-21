@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="text/javascript" src="jquery-1.11.3.js"></script>
+<!--<script type="text/javascript" src="csknz.src.js"></script>-->
 <script type="text/javascript">
 
 //var url = "http://api.geonames.org/cities?north=44.1&south=-9.9&east=-22.4&west=55.2&username=demo";
@@ -82,7 +83,7 @@ function sehir_getir3 (){
 function sehir_getir4 (){
 	var urlJSON = "http://api.geonames.org/citiesJSON";
 	$.ajax( urlJSON , {
-		async: true,
+		async: false,
 		type: "GET",
 		dataType: "JSON",
 		data: {
@@ -95,16 +96,16 @@ function sehir_getir4 (){
 		success: function(returnedData,eventName){
 			console.log(returnedData);
 			var geonameAry = returnedData.geonames;
-			
+
+/*		
 			for( var i = 0; i < geonameAry.length ; i ++ ) {
 				var geoname = geonameAry[i];
 				var geonameId = geoname.geonameId;
 				var name = geoname.name;
-/*
-				$("#sehirler") = $("[id=sehirler]")
+//				$("#sehirler") = $("[id=sehirler]")
 				
-				$("[name=sehirler]") 
-*/
+//				$("[name=sehirler]") 
+
 				//var sehirEle = $("#sehirler");
 				
 				//var opt = $("<option>").text(name).val(geonameId);
@@ -115,6 +116,13 @@ function sehir_getir4 (){
 				opt.attr("lng",geoname.lng).attr("lat",geoname.lat);
 				$("#sehirler").append(opt);
 			}
+*/
+			$(geonameAry).each(function(objIndex,obj){
+				var opt = $("<option>").text(obj.name).val(obj.geonameId);
+				opt.attr("lng",obj.lng).attr("lat",obj.lat);
+				$("#sehirler").append(opt);
+			});
+			$("#sehirler").change();
 		},
 		error: function(obj){
 			console.log( obj );
@@ -126,12 +134,29 @@ function slideDownAnimated(){
 	$("input").fadeToggle();
 	slideDownAnimated();
 }
+
+function initialize( ){
+	$("#sehirler").on("change click", function(obj){
+		//alert("İçerik değiştirildi");
+		$("#longitude").val($("option:selected",this).attr("lng"));
+		$("#latitude").val($("option:selected",this).attr("lat"));
+	});
+	sehir_getir4();
+}
+
+$(document).ready(function(){
+	initialize();
+});
+function initialize2(){
+	alert("onload");
+}
+
 </script>
 <title></title>
 </head>
 
 <body>
-<div> <a href="#" onclick="sehir_getir2()">Getir</a> </div>
+<div> <a id="getir" href="#" onclick="javascript:void(1);">Getir</a> </div>
 <div>
 	<input class="ustLogo" type="image" name="logo" id="logo" src="images/csknz-logo.jpg" />
   <p>
@@ -140,8 +165,17 @@ function slideDownAnimated(){
         <!--<option value="geonameId">name</option>-->
       </select>
     </label>
+  </p>
+  <p>
+    <label for="latitude"></label>
+    Latitude
+    <input name="latitude" type="text" id="latitude" readonly="readonly" />
+    <br />
+    Longitude
+    <input name="longitude" type="text" id="longitude" readonly="readonly" />
     <br/>
-    <label for="fileObj">Dosya Seçin</label>
+    <label for="fileObj"><br />
+    Dosya Seçin</label>
     <input type="file" name="fileObj" id="fileObj" />
     <br/>
     <label for="Seçim Yapınız"></label>
