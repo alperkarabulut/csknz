@@ -59,12 +59,12 @@ function sehir_getir3 (){
 			},
 		success: function(returnedData,eventName){
 			console.log(returnedData);
-/*			var geonameAry = returnedData.getElementsByTagName("geoname");
+			var geonameAry = returnedData.geonames;
 			
 			for( var i = 0; i < geonameAry.length ; i ++ ) {
 				var geoname = geonameAry[i];
-				var geonameId = geoname.getElementsByTagName("geonameId")[0].textContent;
-				var name = geoname.getElementsByTagName("name")[0].textContent;
+				var geonameId = geoname.geonameId;
+				var name = geoname.name;
 				var sehirEle = document.getElementById("sehirler");
 				
 				var opt = document.createElement("option");
@@ -73,7 +73,6 @@ function sehir_getir3 (){
 				sehirEle.appendChild(opt)
 
 			}
-*/
 		}
 	} );
 
