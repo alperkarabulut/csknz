@@ -2,7 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
 <script type="text/javascript" src="jquery-1.11.3.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 <!--<script type="text/javascript" src="csknz.src.js"></script>-->
 <script type="text/javascript">
 
@@ -117,12 +119,18 @@ function sehir_getir4 (){
 				$("#sehirler").append(opt);
 			}
 */
+			var tableData = new Array();
 			$(geonameAry).each(function(objIndex,obj){
 				var opt = $("<option>").text(obj.name).val(obj.geonameId);
 				opt.attr("lng",obj.lng).attr("lat",obj.lat);
 				$("#sehirler").append(opt);
+				
+				tableData.push( [obj.name, obj.geonameId] );
 			});
 			$("#sehirler").change();
+			$("#citiesTable").DataTable({
+				data: tableData
+			});
 		},
 		error: function(obj){
 			console.log( obj );
@@ -136,7 +144,12 @@ function slideDownAnimated(){
 }
 
 function initialize( ){
-	$("#sehirler").on("change click", function(obj){
+	$("#sehirler").on("keydown keyup change", function(obj){
+		//alert("İçerik değiştirildi");
+		$("#longitude").val($("option:selected",this).attr("lng"));
+		$("#latitude").val($("option:selected",this).attr("lat"));
+	});
+	$("#sehirler").bind("change", function(obj){
 		//alert("İçerik değiştirildi");
 		$("#longitude").val($("option:selected",this).attr("lng"));
 		$("#latitude").val($("option:selected",this).attr("lat"));
@@ -158,7 +171,7 @@ function initialize2(){
 <body>
 <div> <a id="getir" href="#" onclick="javascript:void(1);">Getir</a> </div>
 <div>
-	<input class="ustLogo" type="image" name="logo" id="logo" src="images/csknz-logo.jpg" />
+  <input class="ustLogo" type="image" name="logo" id="logo" src="images/csknz-logo.jpg" />
   <p>
     <label>Şehirler
       <select id="sehirler">
@@ -175,7 +188,7 @@ function initialize2(){
     <input name="longitude" type="text" id="longitude" readonly="readonly" />
     <br/>
     <label for="fileObj"><br />
-    Dosya Seçin</label>
+      Dosya Seçin</label>
     <input type="file" name="fileObj" id="fileObj" />
     <br/>
     <label for="Seçim Yapınız"></label>
@@ -185,6 +198,22 @@ function initialize2(){
   <p>
     <input class="altLogo" type="image" name="logo" id="logo" src="images/logo.png" />
   </p>
+</div>
+<div>
+  <table id="citiesTable" border="1" width="100%">
+    <thead>
+      <tr>
+        <th>Şehir Adı</th>
+        <th>Şehir ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 </body>
 </html>
